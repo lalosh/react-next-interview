@@ -1,22 +1,18 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 
-/**
- * Task: Add types to the API response
- */
-
-/*
-
-Todo object shape:
-
-{
-  "id": 1,
-  "todo": "Do something nice for someone you care about",
-  "completed": false,
-  "userId": 152
+interface Todo {
+  id: number;
+  todo: string;
+  completed: boolean;
+  userId: number;
 }
 
-*/
+function fetchTodoById() {
+  return fetch("https://dummyjson.com/todos/{id}")
+    .then((res) => res.json())
+    .then((r) => r.todos);
+}
 
 function fetchTodos() {
   return fetch("https://dummyjson.com/todos")
@@ -25,7 +21,7 @@ function fetchTodos() {
 }
 
 function App() {
-  const [todos, setTodos] = useState<any[]>([]);
+  const [todos, setTodos] = useState<Todo[]>([]);
 
   useEffect(function onLoad() {
     fetchTodos().then((response) => {
@@ -34,29 +30,31 @@ function App() {
   }, []);
 
   return (
-    <table>
-      {todos?.map((item) => (
-        <tr key={item.id}>
-          <td>
-            <span>{item.id}</span>
-          </td>
-          <td style={{ textAlign: "left" }}>
-            <span>{item.todo}</span>
-          </td>
-          <td>
-            <button
-              onClick={() => {
-                if (!item.completed) {
-                  markTodoAsDone();
-                }
-              }}
-            >
-              {!item.completed ? "Done" : "Undo"}
-            </button>
-          </td>
-        </tr>
-      ))}
-    </table>
+    <>
+      <div>{/* display selected todo data*/}</div>
+
+      <table>
+        {todos?.map((item) => (
+          <tr key={item.id}>
+            <td>
+              <span>{item.id}</span>
+            </td>
+            <td style={{ textAlign: "left" }}>
+              <span>{item.todo}</span>
+            </td>
+            <td>
+              <button
+                onClick={() => {
+                  fetchTodoById();
+                }}
+              >
+                {"Fetch details"}
+              </button>
+            </td>
+          </tr>
+        ))}
+      </table>
+    </>
   );
 }
 
