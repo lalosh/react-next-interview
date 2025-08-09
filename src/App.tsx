@@ -45,15 +45,7 @@ function App() {
             <span>{item.todo}</span>
           </td>
           <td>
-            <button
-              onClick={() => {
-                if (!item.completed) {
-                  markTodoAsDone();
-                }
-              }}
-            >
-              {!item.completed ? "Done" : "Undo"}
-            </button>
+            <button>{!item.completed ? "Done" : "Undo"}</button>
           </td>
         </tr>
       ))}
