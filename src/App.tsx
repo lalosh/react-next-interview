@@ -1,8 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 
 /**
- * Task: store the fetched todos and render them
+ * Task: Add types to the API response
  */
 
 /*
@@ -25,12 +25,11 @@ function fetchTodos() {
 }
 
 function App() {
-  const todos: any[] = [];
+  const [todos, setTodos] = useState<any[]>([]);
 
   useEffect(function onLoad() {
     fetchTodos().then((response) => {
-      console.log({ response });
-      // store todos
+      setTodos(response);
     });
   }, []);
 
