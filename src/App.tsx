@@ -11,7 +11,7 @@ interface Todo {
 function fetchTodoById() {
   return fetch("https://dummyjson.com/todos/{id}")
     .then((res) => res.json())
-    .then((r) => r.todos);
+    .then((r) => r.todo);
 }
 
 function fetchTodos() {
